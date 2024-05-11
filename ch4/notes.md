@@ -127,3 +127,24 @@ If you want to drop fractional parts of a quotient, use integer division
 If an unsigned value is out of range, it is divided by one greater than the largest number of the type.
 
 If 280 is stored in a 1byte int, it will only store the remainder after division by 256, so 24.
+
+### Controversy
+
+Easy to overflow the bottom of unsigned because most values stored are closer to zero
+
+# Best Practice
+
+Little consensus, better to be correct than fast and fail at compile rather than runtime, reccomended avoiding fast/least in favor of fixed width.
+
+- Prefer `int` when size doesn't matter, eg. the number fits in a 2byte signed integer
+- Covers most cases
+- Prefer std::int#\_t when storing a quantity with a guaranteed range
+- Prefer std::uint#\_t when doing bit manipulation or needing defined wrap-around behavior
+
+Avoid
+
+- short and long, use fixed width instead
+- Unsigned for holding quantities
+- 8bit fixed-width
+- Fast and least fixed-width
+- Compiple specific fixed-width integers
